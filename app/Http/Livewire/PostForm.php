@@ -14,6 +14,7 @@ class PostForm extends Component
 
     public $title;
     public $content;
+    public $status;
     public $modelId;
     public $featuredImage;
     public $additionalPhotos;
@@ -28,23 +29,25 @@ class PostForm extends Component
         $this->modelId = $modelId;
 
         $model = Post::find($this->modelId);
-        
+
         $this->title = $model->title;
         $this->content = $model->content;
     }
 
     public function save()
-    {   
+    {
         // Data validation
         $validateData = [
-            'title' => 'required|min:10|max:20',
+            'title' => 'required|max:20',
             'content' => 'required',
+            'status' => 'required',
         ];
 
         // Default data
         $data = [
             'title' => $this->title,
             'content' => $this->content,
+            'status' => $this->status,
             'user_id' => auth()->user()->id,
         ];
 
@@ -55,12 +58,12 @@ class PostForm extends Component
             $validateData = array_merge($validateData, [
                 'featuredImage' => 'image'
             ]);
-            
+
             // This is to save the filename of the image in the database
             $data = array_merge($data, [
                 'featured_image' => $imageHashName
             ]);
-            
+
             // Upload the main image
             $this->featuredImage->store('public/photos');
 
@@ -82,7 +85,7 @@ class PostForm extends Component
         if ($this->modelId) {
             Post::find($this->modelId)->update($data);
             $postInstanceId = $this->modelId;
-        } else {            
+        } else {
             $postInstance = Post::create($data);
             $postInstanceId = $postInstance->id;
         }
@@ -120,6 +123,7 @@ class PostForm extends Component
         $this->modelId = null;
         $this->title = null;
         $this->content = null;
+        $this->status = null;
         $this->featuredImage = null;
         $this->additionalPhotos = null;
     }

@@ -46,9 +46,9 @@
         @if ($posts->count())
             <table class="table table-striped">
                 <thead>
-{{--                    <th>Featured Image</th>--}}
                     <th>Title</th>
                     <th>Description</th>
+                    <th>Status</th>
                     <th width="30%">Actions</th>
                 </thead>
                 <tbody>
@@ -57,8 +57,18 @@
                             <td>{{ $item->title }}</td>
                             <td>{{ $item->content }}</td>
                             <td>
-                                <button wire:click="selectItem({{ $item->id }}, 'update')" class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
-                                <button wire:click="selectItem({{ $item->id }}, 'update')" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button>
+
+                                @if($item->status=="pending")
+                                    <i class="fas fa-times btn btn-sm"></i>
+                                @endif
+
+                                @if($item->status=="accomplished")
+                                    <i class="fas fa-check btn btn-sm btn-success"></i>
+                                @endif
+                            </td>
+                            <td>
+
+                                <button wire:click="selectItem({{ $item->id }}, 'update')" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></button>
                                 <button wire:click="selectItem({{ $item->id }}, 'delete')" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>

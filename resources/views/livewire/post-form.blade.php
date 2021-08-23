@@ -10,6 +10,14 @@
     @if ($errors->has('content'))
         <p style="color: red;">{{$errors->first('content')}}</p>
     @endif
+    <label>Status</label>
+    <select class="form-control" wire:model="status" >
+        <option value="">Choose One</option>
+        <option value="pending">Task Pending</option>
+        <option value="accomplished">Task Accomplished</option>
+    </select>    @if ($errors->has('status'))
+        <p style="color: red;">{{$errors->first('status')}}</p>
+    @endif
     <br/>
     <button wire:click="save" class="btn btn-primary"><span><i class="fas fa-save"></i></span>Save</button>
 

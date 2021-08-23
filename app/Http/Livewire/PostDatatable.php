@@ -19,6 +19,7 @@ class PostDatatable extends Component
             'id' => '#',
             'title' => 'Title',
             'content' => 'Content',
+            'status' => 'Status',
             'created_at' => [
                 'label' => 'Creation Date',
                 'func' => function($value) {
@@ -42,6 +43,7 @@ class PostDatatable extends Component
             if($this->searchTerm != "") {
                 $query->where('title', 'like', '%'.$this->searchTerm.'%');
                 $query->orWhere('content', 'like', '%'.$this->searchTerm.'%');
+                $query->orWhere('status', 'like', '%'.$this->searchTerm.'%');
             }
         })
         ->orderBy($this->sortColumn, $this->sortDirection)

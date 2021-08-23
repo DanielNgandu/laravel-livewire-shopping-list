@@ -20,7 +20,7 @@ class Posts extends Component
     public function selectItem($itemId, $action)
     {
         $this->selectedItem = $itemId;
-        
+
         if ($action == 'delete') {
             // This will show the modal on the frontend
             $this->dispatchBrowserEvent('openDeleteModal');
@@ -30,6 +30,9 @@ class Posts extends Component
 
             // Show the modal that shows the additional photos
             $this->dispatchBrowserEvent('openModalShowPhotos');
+        } elseif ($action == 'tick') {
+//            $this->emit('getModelId', $this->selectedItem);
+//            $this->dispatchBrowserEvent('openModal');
         }
         else {
             $this->emit('getModelId', $this->selectedItem);
